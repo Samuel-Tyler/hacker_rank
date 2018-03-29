@@ -1,0 +1,13 @@
+# Ignore executables and build objects
+*.out
+*.o
+*.exe
+*.obj
+hacker_rank
+
+# Ignore CMake Generated Files
+CMakeCache.txt
+CMakeFiles/
+Makefile
+compile_commands.json
+cmake_install.cmake
