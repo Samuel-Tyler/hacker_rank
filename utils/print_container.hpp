@@ -2,7 +2,23 @@
 #include <map>
 
 template <typename T1, typename T2>
+void print(std::pair<T1, T2>  pair)
+{
+   std::cout << pair.first << " : " << pair.second << std::endl;
+}
+
+template <typename T1, typename T2>
 void print(std::map<T1, T2> container)
+{
+    int i = 0;
+    for (const auto& obj : container)
+    {
+        std::cout << i++ << " : " << obj.first << " : " << obj.second << std::endl;
+    }
+}
+
+template <typename T1, typename T2>
+void print(std::multimap<T1, T2> container)
 {
     int i = 0;
     for (const auto& obj : container)
