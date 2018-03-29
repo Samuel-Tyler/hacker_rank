@@ -1,0 +1,150 @@
+#include "../utils/bit_sequence.hpp"
+#include <algorithm>
+#include <chrono>
+#include <cmath>
+#include <cstdio>
+#include <iostream>
+#include <iomanip>
+#include <typeinfo>
+#include <vector>
+using namespace std;
+
+class cumulative_timer
+{
+public:
+  cumulative_timer(const std::string &name) : m_ns(0), m_name(name) {}
+  ~cumulative_timer()
+  {
+    std::cerr << m_name << " - Total active time " << std::setw(15) << m_ns.count() << "ns"
+              << std::endl;
+  }
+  void begin() { m_start = std::chrono::high_resolution_clock::now(); }
+  void end()
+  {
+    const auto end = std::chrono::high_resolution_clock::now();
+    m_ns += end - m_start;
+  }
+
+private:
+  std::chrono::high_resolution_clock::time_point m_start;
+  std::chrono::nanoseconds m_ns;
+  std::string m_name;
+};
+
+template <typename T> void simple_swap(T &&t1, T &&t2)
+{
+  auto tmp = t2;
+  t1 = t2;
+  t2 = tmp;
+}
+
+int main()
+{
+  std::ios::sync_with_stdio(false);
+
+  std::string hamming_string;
+  int string_len;
+  std::cin >> string_len;
+
+  hamming_string.reserve(string_len);
+  std::cin >> hamming_string;
+
+  for (char &c : hamming_string)
+  {
+    c -= ('a' - '0');
+  }
+
+  bit_sequence bit_field(string_len, hamming_string);
+
+  int n_commands;
+  std::cin >> n_commands;
+
+  cumulative_timer c("C");
+  cumulative_timer s("S");
+  cumulative_timer r("R");
+  cumulative_timer w("w");
+  cumulative_timer h("H");
+
+  for (int i = 0; i < n_commands; i++)
+  {
+    char command;
+    std::cin >> command;
+    switch (command)
+    {
+    case 'C':
+    {
+      c.begin();
+      long l, r;
+      char ch;
+      std::cin >> l >> r >> ch;
+      bool value = ch - 'a';
+      for (int j = l - 1; j < r; j++)
+      {
+        bit_field[j] = value;
+      }
+      c.end();
+      break;
+    }
+
+    case 'S':
+    {
+      s.begin();
+      long l1, r1, l2, r2;
+      std::cin >> l1 >> r1 >> l2 >> r2;
+
+      auto new_bit_sequence = bit_sequence(0);
+      new_bit_sequence.append(bit_field.begin() + l2 - 1, bit_field.begin() + r2);
+      new_bit_sequence.append(bit_field.begin() + r1, bit_field.begin() + l2 - 1);
+      new_bit_sequence.append(bit_field.begin() + l1 - 1, bit_field.begin() + r1);
+      std::swap_ranges(new_bit_sequence.begin(), new_bit_sequence.end(),
+                       bit_field.begin() + l1 - 1);
+      s.end();
+      break;
+    }
+
+    case 'R':
+    {
+      r.begin();
+      {
+        long l, r;
+        std::cin >> l >> r;
+        std::reverse(bit_field.begin() + l - 1, bit_field.begin() + r);
+      }
+      r.end();
+      break;
+    }
+
+    case 'W':
+    {
+      w.begin();
+      long l, r;
+      std::cin >> l >> r;
+      for (int j = l - 1; j < r; j++)
+      {
+        std::cout << (char)((bool)bit_field[j] + 'a');
+      }
+      std::cout << '\n';
+      w.end();
+      break;
+    }
+
+    case 'H':
+    {
+      h.begin();
+      int l1, l2, len;
+      std::cin >> l1 >> l2 >> len;
+      int diff = 0;
+
+      for (int j = 0; j < len; j++)
+      {
+        diff += bit_field[l1 - 1 + j] != bit_field[l2 - 1 + j];
+      }
+
+      std::cout << diff << '\n';
+      h.end();
+      break;
+    }
+    }
+  }
+  return 0;
+}
