@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int moves_on_path(const vector<vector<int>>& grid, int r_q, int c_q,
+                  void(*modify)(int&, int&))
+{
+  int moves = 0;
+  while (true)
+  {
+    try
+    {
+      modify(r_q, c_q);
+      if (grid.at(r_q).at(c_q) == 0)
+      {
+        moves++;
+      }
+      else
+      {
+        break;
+      }
+    }
+    catch (...)
+    {
+      break;
+    }
+  }
+  return moves;
+}
+
+int queensAttack(int n, int , int r_q, int c_q, vector<vector<int>> obstacles)
+{
+  r_q--;
+  c_q--;
+  vector<vector<int>> grid(n, vector<int>(n, 0));
+  for (auto obstacle : obstacles)
+  {
+    grid[obstacle[0] - 1][obstacle[1] - 1]++;
+  }
+
+  int res = 0;
+  res += moves_on_path(grid, r_q, c_q, [](int& a, int& b) { a++; b++; });
+  res += moves_on_path(grid, r_q, c_q, [](int& a, int& b) { a--; b++; });
+  res += moves_on_path(grid, r_q, c_q, [](int& a, int& b) { a++; b--; });
+  res += moves_on_path(grid, r_q, c_q, [](int& a, int& b) { a--; b--; });
+  res += moves_on_path(grid, r_q, c_q, [](int& a, int&  ) { a++;      });
+  res += moves_on_path(grid, r_q, c_q, [](int& a, int&  ) { a--;      });
+  res += moves_on_path(grid, r_q, c_q, [](int&  , int& b) { b++;      });
+  res += moves_on_path(grid, r_q, c_q, [](int&  , int& b) { b--;      });
+  return res;
+}
+
+int main()
+{
+  int n;
+  int k;
+  cin >> n >> k;
+  int r_q;
+  int c_q;
+  cin >> r_q >> c_q;
+  vector<vector<int>> obstacles(k, vector<int>(2));
+  for (int obstacles_i = 0; obstacles_i < k; obstacles_i++)
+  {
+    for (int obstacles_j = 0; obstacles_j < 2; obstacles_j++)
+    {
+      cin >> obstacles[obstacles_i][obstacles_j];
+    }
+  }
+  int result = queensAttack(n, k, r_q, c_q, obstacles);
+  cout << result << endl;
+  return 0;
+}
