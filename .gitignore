@@ -4,6 +4,7 @@
 *.exe
 *.obj
 hacker_rank
+hacker_test
 
 # Ignore CMake Generated Files
 CMakeCache.txt
@@ -11,3 +12,6 @@ CMakeFiles/
 Makefile
 compile_commands.json
 cmake_install.cmake
+
+# Ignore test files
+*.tst
