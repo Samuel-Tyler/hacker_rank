@@ -1,4 +1,3 @@
-#include "../utils/print_container.hpp"
 #include <algorithm>
 #include <cassert>
 #include <experimental/optional>
@@ -12,11 +11,11 @@
 
 struct node;
 std::vector<node> nodes;
-std::set<int> assigned_nodes;
+std::set<int>     assigned_nodes;
 struct node
 {
 public:
-  node(int n) : m_n(n), m_distance_from_root(0) {}
+  node(int      n) : m_n(n), m_distance_from_root(0) {}
   long long int get_num() const { return m_n; }
   long long int get_num_children() const
   {
@@ -31,20 +30,20 @@ public:
     return *m_total_children;
   }
 
-  node(const node &) = default;
-  node &operator=(const node &) = default;
+  node(const node&) = default;
+  node& operator=(const node&) = default;
 
   long total_probability_bins() const
   {
     return m_distance_from_root +
            std::accumulate(m_children.begin(), m_children.end(), 0ll,
-                           [](long n_nodes, const long &n) {
+                           [](long n_nodes, const long& n) {
                              return n_nodes +
                                     nodes.at(n).total_probability_bins();
                            });
   }
 
-  node *find_node(int n)
+  node* find_node(int n)
   {
     if (m_n == n)
     {
@@ -52,9 +51,9 @@ public:
     }
     else
     {
-      for (auto &child : m_children)
+      for (auto& child : m_children)
       {
-        node *matching_child = nodes.at(child).find_node(n);
+        node* matching_child = nodes.at(child).find_node(n);
         if (matching_child != nullptr)
         {
           return matching_child;
@@ -83,7 +82,7 @@ public:
       }
     }
 
-    for (const auto &child : m_children)
+    for (const auto& child : m_children)
     {
       nodes[child].build();
     }
@@ -111,7 +110,7 @@ public:
     }
     else
     {
-      std::cout << "wut" << std::endl;
+      assert(0);
     }
     return *m_total_sum_children;
   }
@@ -122,7 +121,7 @@ public:
               << m_distance_from_root << " total children "
               << get_num_children() << " total sum children"
               << find_sum_children() << '\n';
-    for (const auto &child : m_children)
+    for (const auto& child : m_children)
     {
       nodes.at(child).print();
     }
@@ -133,10 +132,10 @@ public:
   int get_id() const { return m_n; }
 
 private:
-  long long int m_n;
-  long long int m_distance_from_root;
-  std::vector<int> m_children;
-  std::vector<int> m_connected;
+  long long int                                      m_n;
+  long long int                                      m_distance_from_root;
+  std::vector<int>                                   m_children;
+  std::vector<int>                                   m_connected;
   mutable std::experimental::optional<long long int> m_total_children;
   mutable std::experimental::optional<long long int> m_total_sum_children;
 };
@@ -161,7 +160,7 @@ int main()
   {
     nodes.push_back(node(i));
   }
-  for (const auto &link : links)
+  for (const auto& link : links)
   {
     nodes[link.first].add_connection(link.second);
     nodes[link.second].add_connection(link.first);
@@ -173,7 +172,7 @@ int main()
       print(link);
     }
     */
-  auto &root = nodes[1];
+  auto& root = nodes[1];
   assigned_nodes.insert(1);
   root.build();
 
