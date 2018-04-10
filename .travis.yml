@@ -26,4 +26,4 @@ jobs:
         #        env:
         #  - PROBLEM_DIR = wire_removal
         script:
-          ./test/hacker_test $PROBLEM_DIR
+          ls #./test/hacker_test $PROBLEM_DIR
