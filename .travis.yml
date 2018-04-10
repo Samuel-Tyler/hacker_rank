@@ -12,7 +12,7 @@ stages:
 
 jobs:
     include:
-      - stage: test
+      - stage: compile
         script:
           cd $BUILD_DIR
           - mkdir ./build
