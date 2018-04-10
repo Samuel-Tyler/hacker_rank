@@ -148,7 +148,8 @@ std::vector<Problem> find_problems(const std::string& search_path)
   auto add_path = [&paths](const fs::path& path) {
     if (fs::exists(path / std::string(executable_name)))
     {
-      auto& problem = paths.emplace_back(path);
+
+      auto problem = Problem(path);
 
       for (const auto dir : fs::recursive_directory_iterator(path))
       {
@@ -161,6 +162,7 @@ std::vector<Problem> find_problems(const std::string& search_path)
           problem.test_cases.push_back(test_case);
         }
       }
+      paths.push_back(path);
     }
   };
 
@@ -298,7 +300,7 @@ int main(int argc, char** argv)
           std::async(std::launch::async, [&pid, &argv, &command, &test_case,
                                           &test_output_filename] {
 
-            std::array<int, 2> pipe_stdin = {};
+            std::array<int, 2> pipe_stdin  = {};
             std::array<int, 2> pipe_stdout = {};
             if (pipe(pipe_stdin.data()) < 0)
             {
