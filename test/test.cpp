@@ -10,7 +10,9 @@
 #include <thread>
 #include <vector>
 
-#include <signal.h>
+#include <csignal>
+#include <cstring>
+
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
@@ -19,8 +21,8 @@
 using namespace std::chrono_literals;
 using namespace std::string_literals;
 
-std::experimental::string_view executable_name = "hacker_rank";
-std::experimental::string_view input_file_name = "input";
+const char* executable_name = "hacker_rank";
+const char* input_file_name = "input";
 
 enum class Test_result
 {
@@ -281,8 +283,8 @@ int main(int argc, char** argv)
 
       auto reference_output_filename = test_case.path.string();
       reference_output_filename.replace(
-          reference_output_filename.find(std::string(input_file_name)),
-          input_file_name.size(), "output");
+          reference_output_filename.find(input_file_name),
+          std::strlen(input_file_name), "output");
       const auto  test_output_filename = reference_output_filename + ".tst";
       std::string command =
           (problem.path / std::string(executable_name)).string(); //+ " < " +
@@ -296,8 +298,8 @@ int main(int argc, char** argv)
           std::async(std::launch::async, [&pid, &argv, &command, &test_case,
                                           &test_output_filename] {
 
-            std::array<int, 2> pipe_stdin;
-            std::array<int, 2> pipe_stdout;
+            std::array<int, 2> pipe_stdin = {};
+            std::array<int, 2> pipe_stdout = {};
             if (pipe(pipe_stdin.data()) < 0)
             {
               return -1;
@@ -332,16 +334,17 @@ int main(int argc, char** argv)
               }
               std::string line;
               std::getline(input_file, line);
-              write(pipe_stdin[1], line.data(), line.length());
-              write(pipe_stdin[1], "\n", 1);
-
-              /* std::vector<char> buffer(512);
-            input_file.read(buffer.data(), buffer.size());
-            if (input_file.gcount() <= 0)
-            {
-              break;
-            }
-            write(pipe_stdin[1], buffer.data(), input_file.gcount());*/
+              const auto bytes_written =
+                  write(pipe_stdin[1], line.data(), line.length());
+              if (bytes_written != static_cast<int>(line.length()))
+              {
+                break;
+              }
+              const auto bytes_written2 = write(pipe_stdin[1], "\n", 1);
+              if (bytes_written2 != 1)
+              {
+                break;
+              }
             }
             while (true)
             {
