@@ -4,14 +4,22 @@ language: cpp
 
 env:
   - BUILD_DIR = wire_removal
-    #  - BUILD_DIR = test
+  - BUILD_DIR = test
 
-script: 
-  echo $BUILD_DIR
-  - cd $BUILD_DIR
-  - mkdir ./build
-  - cd build
-  - cmake ..
-  - cmake --build . -- -j2
-  - mv hacker_* ..          
-      
+stages:
+  - compile
+  - test
+
+jobs:
+    include:
+      - stage: test
+        script:
+          cd $BUILD_DIR
+          - mkdir ./build
+          - cd build
+          - cmake ..
+          - cmake --build . -- -j2
+          - mv hacker_* ..
+        - stage: test
+          script:
+          ./test/hacker_test wire_removal
