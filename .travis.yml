@@ -1,0 +1,7 @@
+dist: trusty
+sudo: false
+language: cpp
+
+script:
+    - cmake ./wire_removal
+    - cmake --build ./wire_removal -- -j2
