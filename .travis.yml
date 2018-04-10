@@ -2,7 +2,7 @@ dist: trusty
 sudo: false
 language: cpp
 
-env:
+env: compile
   - BUILD_DIR = wire_removal
   - BUILD_DIR = test
 
