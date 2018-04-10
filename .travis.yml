@@ -2,7 +2,6 @@ dist: trusty
 sudo: false
 language: cpp
 
-
 stages:
   - compile
   - test
@@ -11,7 +10,7 @@ jobs:
     include:
       - stage: compile
         env:
-          - BUILD_DIR = wire_removal
+          BUILD_DIR = wire_removal
           - BUILD_DIR = test
         script:
           cd $BUILD_DIR
