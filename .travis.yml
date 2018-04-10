@@ -2,9 +2,6 @@ dist: trusty
 sudo: false
 language: cpp
 
-env:
-  - BUILD_DIR = wire_removal
-  - BUILD_DIR = test
 
 stages:
   - compile
@@ -13,6 +10,9 @@ stages:
 jobs:
     include:
       - stage: compile
+        env:
+          - BUILD_DIR = wire_removal
+          - BUILD_DIR = test
         script:
           cd $BUILD_DIR
           - mkdir ./build
@@ -20,6 +20,9 @@ jobs:
           - cmake ..
           - cmake --build . -- -j2
           - mv hacker_* ..
+
       - stage: test
+        env:
+          - PROBLEM_DIR = wire_removal
         script:
-          ./test/hacker_test wire_removal
+          ./test/hacker_test $PROBLEM_DIR
