@@ -4,7 +4,7 @@ language: cpp
 
 env:
   - BUILD_DIR = wire_removal
-  - BUILD_DIR = test
+    #  - BUILD_DIR = test
 
     #scripts:
     #  - compile
