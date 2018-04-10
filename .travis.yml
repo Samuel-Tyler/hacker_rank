@@ -16,6 +16,3 @@ jobs:
           - cmake ..
           - cmake --build . -- -j2
           - mv hacker_* ..
-       - stage: compile
-         script:
-           - ./test/hacker_test wire_removal
