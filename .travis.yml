@@ -3,22 +3,24 @@ sudo: false
 language: cpp
 
 env:
-    - BUILD_DIR = wire_removal
-    - BUILD_DIR = test
-    - PROBLEM_DIR = wire_removal
-    - TEST_DIR = test
+  - BUILD_DIR = wire_removal
+  - BUILD_DIR = test
+  - PROBLEM_DIR = wire_removal
+  - TEST_DIR = test
 
 jobs:
     include:
-        - stage: compile
-          script:
-              - cd $BUILD_DIR
-              - mkdir ./build
-              - cd build
-              - cmake ..
-              - cmake --build . -- -j2
-              - mv hacker_* ..
-        - stage: test
-          script:
-              - ./$TESTDIR/hacker_test $PROBLEM_DIR
-
+      - stage: compile
+        script:
+          - cd $BUILD_DIR
+          - mkdir ./build
+          - cd build
+          - cmake ..
+          - cmake --build . -- -j2
+          - mv hacker_* ..
+       - stage: test
+         script:
+          - ./$TESTDIR/hacker_test $PROBLEM_DIR
+stages:
+  - compile
+  - test
