@@ -3,5 +3,9 @@ sudo: false
 language: cpp
 
 script:
-    - cmake ./wire_removal
-    - cmake --build ./wire_removal -- -j2
+    cd wire_removal
+    - mkdir ./build
+    - cd build
+    - cmake ..
+    - cmake --build . -- -j2
+    - mv hacker_rank ..
