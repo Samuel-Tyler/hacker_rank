@@ -57,7 +57,7 @@ before_script:
   - cd ../..
 
 script:
-  cd $PROBLEM_DIR
+  - cd $PROBLEM_DIR
   - mkdir -p ./build
   - cd build
   - cmake ..
