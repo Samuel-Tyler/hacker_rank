@@ -15,5 +15,3 @@ script:
   - cmake --build . -- -j2
   - mv hacker_* ..          
       
-script:
-  - ls
