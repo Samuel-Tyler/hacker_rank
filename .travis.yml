@@ -14,9 +14,9 @@ script:
 
 jobs:
     include:
-      - stage: test
-        script: skip
       - stage: compile
+        script: skip
+      - stage: test
         script:
           - echo $BUILD_DIR
           - cd $BUILD_DIR
