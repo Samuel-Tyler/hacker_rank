@@ -2,28 +2,23 @@ dist: trusty
 sudo: false
 language: cpp
 
-stages:
-  - compile
-  - test
+env:
+  - BUILD_DIR = wire_removal
+  - BUILD_DIR = travis
 
-jobs:
-    include:
-      - stage: compile
-        env:
-          - BUILD_DIR = 1
-          - BUILD_DIR = 2
-        script:
-          cd $BUILD_DIR
-          - mkdir ./build
-          - cd build
-          - cmake ..
-          - cmake --build . -- -j2
-          - mv hacker_* ..
+before_script:
+  - cd test
+  - mkdir ./build
+  - cd build
+  - cmake ..
+  - cmake --build . -- -j2
+  - mv hacker_test ..
 
-      - stage: test
-        env:
-          - PROBLEM_DIR = wire_removal
-          - PROBLEM_DIR = Test1
-          - PROBLEM_DIR = TEST3
-        script:
-          ls $PROBLEM_DIR #./test/hacker_test $PROBLEM_DIR
+script:
+  - cd $BUILD_DIR
+  - mkdir ./build
+  - cd build
+  - cmake ..
+  - cmake --build . -- -j2
+  - mv hacker_rank ..
+  - ./test/hacker_rank $PROBLEM_DIR
