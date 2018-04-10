@@ -18,4 +18,4 @@ jobs:
           - mv hacker_* ..
        - stage: test
          script:
-           - ./test/hacker_test $PROBLEM_DIR
+           - ./test/hacker_test wire_removal
