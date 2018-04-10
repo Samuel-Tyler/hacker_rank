@@ -9,9 +9,11 @@ stages:
 jobs:
     include:
       - stage: compile
-        env: 
-          - BUILD_DIR = 1
-          - BUILD_DIR = 2
+        matrix:
+          include:
+            env:
+             - BUILD_DIR = 1
+             - BUILD_DIR = 2
         script:
           cd $BUILD_DIR
           - mkdir ./build
