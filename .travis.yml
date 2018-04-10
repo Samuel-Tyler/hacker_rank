@@ -57,6 +57,7 @@ before_script:
   - cd ../..
 
 script:
+  - pwd
   - cd $PROBLEM_DIR
   - mkdir -p ./build
   - cd build
