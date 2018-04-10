@@ -14,7 +14,38 @@ install:
 
 env:
   - BUILD_DIR = wire_removal
-  - BUILD_DIR = travis
+  - BUILD_DIR = absolute_permutation
+  - BUILD_DIR = kruskal_mst
+  - BUILD_DIR = bigger_is_greater
+  - BUILD_DIR = kth_minimum
+  - BUILD_DIR = big_sorting
+  - BUILD_DIR = birthday_cake_candles
+  - BUILD_DIR = lilys_homework
+  - BUILD_DIR = bomber_man
+  - BUILD_DIR = closest_numbers
+  - BUILD_DIR = matrix
+  - BUILD_DIR = matrix_land
+  - BUILD_DIR = non_divisible_subset
+  - BUILD_DIR = organizing_containers_of_balls
+  - BUILD_DIR = coin_change_problem
+  - BUILD_DIR = password_cracker
+  - BUILD_DIR = queens-attack-2
+  - BUILD_DIR = encyrption
+  - BUILD_DIR = race_against_time
+  - BUILD_DIR = extra_long_factorials
+  - BUILD_DIR = fraudulant_activity_notifications
+  - BUILD_DIR = recursive_digit_sum
+  - BUILD_DIR = full_counting_sort
+  - BUILD_DIR = hamming_distance
+  - BUILD_DIR = the_grid_search
+  - BUILD_DIR = hour_rank_27_1
+  - BUILD_DIR = the_power_sum
+  - BUILD_DIR = insertion_sort_advanced_analysis
+  - BUILD_DIR = insertion_sort_part_1
+  - BUILD_DIR = ways_to_give_check
+  - BUILD_DIR = insertion_sort_part_2
+  - BUILD_DIR = wire_removal
+  - BUILD_DIR = k_factorization
 
 before_script:
   - cd test
@@ -23,10 +54,11 @@ before_script:
   - cmake ..
   - cmake --build . -- -j2
   - mv hacker_test ..
+  - cd ../..
 
 script:
   - cd $BUILD_DIR
-  - mkdir ./build
+  - mkdir -p ./build
   - cd build
   - cmake ..
   - cmake --build . -- -j2
