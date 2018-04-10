@@ -9,16 +9,13 @@ env:
 jobs:
     include:
       - stage: test
-            script:
-              - cd $BUILD_DIR
-              - mkdir ./build
-              - cd build
-              - cmake ..
-              - cmake --build . -- -j2
-              - mv hacker_* ..
+        script:
+          - cd $BUILD_DIR
+          - mkdir ./build
+          - cd build
+          - cmake ..
+          - cmake --build . -- -j2
+          - mv hacker_* ..
        - stage: test
-             script:
-               - ./test/hacker_test $PROBLEM_DIR
-stages:
-  - compile
-  - test
+         script:
+           - ./test/hacker_test $PROBLEM_DIR
