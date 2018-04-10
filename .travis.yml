@@ -6,6 +6,8 @@ env:
   - BUILD_DIR = wire_removal
     #  - BUILD_DIR = test
 
+script:
+  - ls
     #scripts:
     #  - compile
     #  - test
@@ -15,7 +17,6 @@ jobs:
       - stage: test
         script: skip
       - stage: compile
-        script: skip
         script:
           - cd $BUILD_DIR
           - mkdir ./build
