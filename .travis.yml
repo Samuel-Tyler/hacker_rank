@@ -6,22 +6,14 @@ env:
   - BUILD_DIR = wire_removal
     #  - BUILD_DIR = test
 
+script: 
+  - echo $BUILD_DIR
+  - cd $BUILD_DIR
+  - mkdir ./build
+  - cd build
+  - cmake ..
+  - cmake --build . -- -j2
+  - mv hacker_* ..          
+      
 script:
   - ls
-    #scripts:
-    #  - compile
-    #  - test
-
-jobs:
-    include:
-      - stage: compile
-        script: skip
-      - stage: test
-        script:
-          - echo $BUILD_DIR
-          - cd $BUILD_DIR
-          - mkdir ./build
-          - cd build
-          - cmake ..
-          - cmake --build . -- -j2
-          - mv hacker_* ..
