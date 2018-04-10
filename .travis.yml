@@ -63,4 +63,5 @@ script:
   - cmake ..
   - cmake --build . -- -j2
   - mv hacker_rank ..
+  - cd ../..
   - ./test/hacker_rank $PROBLEM_DIR
