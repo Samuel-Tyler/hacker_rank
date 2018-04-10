@@ -8,6 +8,8 @@ env:
 
 jobs:
     include:
+      - stage: test
+        script: skip
       - stage: compile
         script:
           - cd $BUILD_DIR
