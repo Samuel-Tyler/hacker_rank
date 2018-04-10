@@ -129,10 +129,13 @@ struct Test_case
 
 struct Problem
 {
-  Problem(const fs::path& _path) : path(_path), name(fs::absolute(_path).stem().string()) {}
-  fs::path                path;
-  std::string             name;
-  std::vector<Test_case>  test_cases;
+  Problem(const fs::path& _path)
+      : path(_path), name(fs::absolute(_path).stem().string())
+  {
+  }
+  fs::path               path;
+  std::string            name;
+  std::vector<Test_case> test_cases;
 };
 
 std::vector<Problem> find_problems(const std::string& search_path)
@@ -258,6 +261,8 @@ void print(const std::vector<Problem>& problems)
 
 int main(int argc, char** argv)
 {
+  bool all_tests_passed = true;
+
   std::string search_path = "..";
   if (argc > 1)
   {
@@ -401,8 +406,15 @@ int main(int argc, char** argv)
       {
         test_case.test_result = Test_result::success;
       }
+
+      if (test_case.test_result != Test_result::success)
+      {
+        all_tests_passed = false;
+      }
+
       print(problems);
     }
     print(problems);
   }
+  return all_tests_passed ? 0 : -1;
 }
