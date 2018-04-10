@@ -10,7 +10,6 @@ if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer")
 endif()
 
-find_package(Boost)
 find_package(Threads REQUIRED)
 find_program(
   CLANG_TIDY_EXE
@@ -23,13 +22,10 @@ else()
   set(DO_CLANG_TIDY "${CLANG_TIDY_EXE}" "-checks=*,-clang-analyzer-alpha.*,-fix")
 endif()
 
-include_directories(${Boost_INCLUDE_DIR})
-include_directories(../utils)
 aux_source_directory(. SRC_LIST)
 add_executable(${PROJECT_NAME} ${SRC_LIST})
 target_link_libraries(
   ${PROJECT_NAME}
-  ${Boost_LIBRARIES}
   stdc++fs
   Threads::Threads
   )
