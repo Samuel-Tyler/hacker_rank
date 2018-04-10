@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <experimental/filesystem>
+#include <experimental/string_view>
 #include <fstream>
 #include <future>
 #include <iostream>
@@ -18,8 +19,8 @@
 using namespace std::chrono_literals;
 using namespace std::string_literals;
 
-constexpr std::string_view executable_name = "hacker_rank";
-constexpr std::string_view input_file_name = "input";
+std::experimental::string_view executable_name = "hacker_rank";
+std::experimental::string_view input_file_name = "input";
 
 enum class Test_result
 {
@@ -143,7 +144,7 @@ std::vector<Problem> find_problems(const std::string& search_path)
   std::vector<Problem> paths;
 
   auto add_path = [&paths](const fs::path& path) {
-    if (fs::exists(path / executable_name))
+    if (fs::exists(path / std::string(executable_name)))
     {
       auto& problem = paths.emplace_back(path);
 
@@ -280,11 +281,11 @@ int main(int argc, char** argv)
 
       auto reference_output_filename = test_case.path.string();
       reference_output_filename.replace(
-          reference_output_filename.find(input_file_name),
+          reference_output_filename.find(std::string(input_file_name)),
           input_file_name.size(), "output");
       const auto  test_output_filename = reference_output_filename + ".tst";
       std::string command =
-          (problem.path / executable_name).string(); //+ " < " +
+          (problem.path / std::string(executable_name)).string(); //+ " < " +
       //   test_case.path.string() + " > " +
       //  test_output_filename + " 2> /dev/null";
 
