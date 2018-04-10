@@ -7,7 +7,7 @@ env:
     #  - BUILD_DIR = test
 
 script: 
-  - echo $BUILD_DIR
+  echo $BUILD_DIR
   - cd $BUILD_DIR
   - mkdir ./build
   - cd build
