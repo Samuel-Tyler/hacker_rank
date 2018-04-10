@@ -10,17 +10,17 @@ env:
 
 jobs:
     include:
-      - stage: compile
-        script:
-          - cd $BUILD_DIR
-          - mkdir ./build
-          - cd build
-          - cmake ..
-          - cmake --build . -- -j2
-          - mv hacker_* ..
+      - stage: test
+            script:
+              - cd $BUILD_DIR
+              - mkdir ./build
+              - cd build
+              - cmake ..
+              - cmake --build . -- -j2
+              - mv hacker_* ..
        - stage: test
-         script:
-          - ./$TESTDIR/hacker_test $PROBLEM_DIR
+             script:
+               - ./$TESTDIR/hacker_test $PROBLEM_DIR
 stages:
   - compile
   - test
