@@ -9,10 +9,9 @@ stages:
 jobs:
     include:
       - stage: compile
-                 
-          env: 
-            - BUILD_DIR = 1
-            - BUILD_DIR = 2
+        env: 
+          - BUILD_DIR = 1
+          - BUILD_DIR = 2
         script:
           cd $BUILD_DIR
           - mkdir ./build
@@ -22,7 +21,7 @@ jobs:
           - mv hacker_* ..
 
       - stage: test
-           env:
-           - PROBLEM_DIR = wire_removal
+        env:
+          - PROBLEM_DIR = wire_removal
         script:
           ls #./test/hacker_test $PROBLEM_DIR
