@@ -22,44 +22,44 @@ before_script:
   - cd ../..
 
 env:
-  - PROBLEM_DIR = wire_removal
-  - PROBLEM_DIR = absolute_permutation
-  - PROBLEM_DIR = kruskal_mst
-  - PROBLEM_DIR = bigger_is_greater
-  - PROBLEM_DIR = kth_minimum
-  - PROBLEM_DIR = big_sorting
-  - PROBLEM_DIR = birthday_cake_candles
-  - PROBLEM_DIR = lilys_homework
-  - PROBLEM_DIR = bomber_man
-  - PROBLEM_DIR = closest_numbers
-  - PROBLEM_DIR = matrix
-  - PROBLEM_DIR = matrix_land
-  - PROBLEM_DIR = non_divisible_subset
-  - PROBLEM_DIR = organizing_containers_of_balls
-  - PROBLEM_DIR = coin_change_problem
-  - PROBLEM_DIR = password_cracker
-  - PROBLEM_DIR = queens-attack-2
-  - PROBLEM_DIR = encyrption
-  - PROBLEM_DIR = race_against_time
-  - PROBLEM_DIR = extra_long_factorials
-  - PROBLEM_DIR = fraudulant_activity_notifications
-  - PROBLEM_DIR = recursive_digit_sum
-  - PROBLEM_DIR = full_counting_sort
-  - PROBLEM_DIR = hamming_distance
-  - PROBLEM_DIR = the_grid_search
-  - PROBLEM_DIR = hour_rank_27_1
-  - PROBLEM_DIR = the_power_sum
-  - PROBLEM_DIR = insertion_sort_advanced_analysis
-  - PROBLEM_DIR = insertion_sort_part_1
-  - PROBLEM_DIR = ways_to_give_check
-  - PROBLEM_DIR = insertion_sort_part_2
-  - PROBLEM_DIR = wire_removal
-  - PROBLEM_DIR = k_factorization
+  - PROBLEM_DIR=wire_removal
+  - PROBLEM_DIR=absolute_permutation
+  - PROBLEM_DIR=kruskal_mst
+  - PROBLEM_DIR=bigger_is_greater
+  - PROBLEM_DIR=kth_minimum
+  - PROBLEM_DIR=big_sorting
+  - PROBLEM_DIR=birthday_cake_candles
+  - PROBLEM_DIR=lilys_homework
+  - PROBLEM_DIR=bomber_man
+  - PROBLEM_DIR=closest_numbers
+  - PROBLEM_DIR=matrix
+  - PROBLEM_DIR=matrix_land
+  - PROBLEM_DIR=non_divisible_subset
+  - PROBLEM_DIR=organizing_containers_of_balls
+  - PROBLEM_DIR=coin_change_problem
+  - PROBLEM_DIR=password_cracker
+  - PROBLEM_DIR=queens-attack-2
+  - PROBLEM_DIR=encyrption
+  - PROBLEM_DIR=race_against_time
+  - PROBLEM_DIR=extra_long_factorials
+  - PROBLEM_DIR=fraudulant_activity_notifications
+  - PROBLEM_DIR=recursive_digit_sum
+  - PROBLEM_DIR=full_counting_sort
+  - PROBLEM_DIR=hamming_distance
+  - PROBLEM_DIR=the_grid_search
+  - PROBLEM_DIR=hour_rank_27_1
+  - PROBLEM_DIR=the_power_sum
+  - PROBLEM_DIR=insertion_sort_advanced_analysis
+  - PROBLEM_DIR=insertion_sort_part_1
+  - PROBLEM_DIR=ways_to_give_check
+  - PROBLEM_DIR=insertion_sort_part_2
+  - PROBLEM_DIR=wire_removal
+  - PROBLEM_DIR=k_factorization
 
 
 script:
   - pwd
-  - cd $PROBLEM_DIR
+  - cd wire_removal #./$PROBLEM_DIR
   - mkdir build
   - cd build
   - pwd
