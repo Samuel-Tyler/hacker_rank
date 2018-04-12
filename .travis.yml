@@ -12,6 +12,15 @@ install:
   - sudo apt-get install -qq g++-6
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-6 90
 
+before_script:
+  - cd test
+  - mkdir ./build
+  - cd build
+  - cmake ..
+  - cmake --build . -- -j2
+  - mv hacker_test ..
+  - cd ../..
+
 env:
   - PROBLEM_DIR = wire_removal
   - PROBLEM_DIR = absolute_permutation
@@ -47,20 +56,13 @@ env:
   - PROBLEM_DIR = wire_removal
   - PROBLEM_DIR = k_factorization
 
-before_script:
-  - cd test
-  - mkdir ./build
-  - cd build
-  - cmake ..
-  - cmake --build . -- -j2
-  - mv hacker_test ..
-  - cd ../..
 
 script:
   - pwd
   - cd $PROBLEM_DIR
-  - mkdir -p ./build
+  - mkdir build
   - cd build
+  - pwd
   - cmake ..
   - cmake --build . -- -j2
   - mv hacker_rank ..

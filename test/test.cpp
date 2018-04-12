@@ -123,7 +123,7 @@ Console_colour colour(const Test_result& test_result) noexcept
 
 struct Test_case
 {
-  Test_case() : test_result(Test_result::untested), execution_time(0) {}
+  Test_case() : test_result{}, execution_time(0) {}
   std::string               name;
   fs::path                  path;
   Test_result               test_result;
@@ -132,8 +132,8 @@ struct Test_case
 
 struct Problem
 {
-  Problem(const fs::path& _path)
-      : path(_path), name(fs::absolute(_path).stem().string())
+  explicit Problem(const fs::path& _path)
+      : path(_path), name(fs::canonical(fs::absolute(_path)).stem().string())
   {
   }
   fs::path               path;
@@ -151,7 +151,7 @@ std::vector<Problem> find_problems(const std::string& search_path)
 
       auto problem = Problem(path);
 
-      for (const auto dir : fs::recursive_directory_iterator(path))
+      for (const auto& dir : fs::recursive_directory_iterator(path))
       {
         if (dir.path().stem().string().find("input") != std::string::npos)
         {
@@ -162,7 +162,7 @@ std::vector<Problem> find_problems(const std::string& search_path)
           problem.test_cases.push_back(test_case);
         }
       }
-      paths.push_back(path);
+      paths.push_back(problem);
     }
   };
 
@@ -289,9 +289,7 @@ int main(int argc, char** argv)
           std::strlen(input_file_name), "output");
       const auto  test_output_filename = reference_output_filename + ".tst";
       std::string command =
-          (problem.path / std::string(executable_name)).string(); //+ " < " +
-      //   test_case.path.string() + " > " +
-      //  test_output_filename + " 2> /dev/null";
+          (problem.path / std::string(executable_name)).string();
 
       const auto start = std::chrono::high_resolution_clock::now();
 
@@ -319,7 +317,7 @@ int main(int argc, char** argv)
 
               dup2(pipe_stdin[0], fileno(stdin));
               dup2(pipe_stdout[1], fileno(stdout));
-              auto ret = execl(command.c_str(), argv[0], NULL);
+              auto ret = execl(command.c_str(), "", nullptr);
               exit(ret);
             }
 
