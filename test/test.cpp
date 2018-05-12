@@ -72,7 +72,7 @@ bool compare_output_files(const std::string& p1, const std::string& p2)
     }
   }
 
-  return true;
+  return no_ws_f1 == no_ws_f2;
 }
 
 std::string to_string(const Test_result& test_result) noexcept

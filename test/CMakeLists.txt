@@ -6,7 +6,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(THREADS_PREFER_PTHREAD_FLAG ON)
 if (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O3 -Wall -Wextra -Wno-long-long -pedantic")
-  set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -g -flto -fno-omit-frame-pointer -lstdc++fs")
+  set(CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -g -flto -fno-omit-frame-pointer -lstdc++fs -fuse-ld=gold")
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-omit-frame-pointer")
 endif()
 
