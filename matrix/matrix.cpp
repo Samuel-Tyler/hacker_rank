@@ -27,34 +27,19 @@ struct Disjoint_set
     {
       return node;
     }
-    else
-    {
-      return find_root(parent);
-    }
+
+    return find_root(parent);
   }
 
   void make_union(const T& node_one, const T& node_two)
   {
-    if (true) // m_depth[find_root(node_one)] < m_depth[find_root(node_two)])
-    {
-      T    new_parent            = find_root(node_one);
-      T    new_child             = find_root(node_two);
-      bool one_has_catapult      = m_has_catapult[new_parent];
-      bool two_has_catapult      = m_has_catapult[new_child];
-      m_has_catapult[new_parent] = one_has_catapult || two_has_catapult;
-      m_depth[new_parent]        = m_depth[new_parent] + m_depth[new_child];
-      m_parents[new_child]       = new_parent;
-    }
-    else
-    {
-      T    new_parent            = find_root(node_two);
-      T    new_child             = find_root(node_one);
-      bool one_has_catapult      = m_has_catapult[new_parent];
-      bool two_has_catapult      = m_has_catapult[new_child];
-      m_has_catapult[new_parent] = one_has_catapult || two_has_catapult;
-      m_depth[new_parent]        = m_depth[new_parent] + m_depth[new_child];
-      m_parents[new_parent]      = new_child;
-    }
+    T    new_parent            = find_root(node_one);
+    T    new_child             = find_root(node_two);
+    bool one_has_catapult      = m_has_catapult[new_parent];
+    bool two_has_catapult      = m_has_catapult[new_child];
+    m_has_catapult[new_parent] = one_has_catapult || two_has_catapult;
+    m_depth[new_parent]        = m_depth[new_parent] + m_depth[new_child];
+    m_parents[new_child]       = new_parent;
   }
 
   bool has_catapult(const T& node) { return m_has_catapult[find_root(node)]; }
@@ -141,7 +126,7 @@ int main()
 
   Disjoint_set<int> minimised_disjoint_set(minimised_nodes,
                                            minimised_catapults);
-  int sum = 0;
+  int               sum = 0;
   for (const auto& connection : connections)
   {
     if (minimised_disjoint_set.find_root(connection.start) !=
