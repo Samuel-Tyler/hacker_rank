@@ -5,14 +5,13 @@ using namespace std;
 int equal(vector<int> arr)
 {
   std::vector<int> diffs;
-  diffs.reserve(arr.size());
   std::sort(arr.begin(), arr.end());
   for (size_t i = 0; i < arr.size(); i++)
   {
     diffs.push_back(arr[i] - arr[0]);
   }
   int min_sum = INT_MAX;
-  for (int i = 0; i < 1; i++)
+  for (int i = 0; i < 3; i++)
   {
     int sum = 0;
     for (int diff : diffs)
@@ -43,6 +42,7 @@ int main()
     {
       cin >> arr[arr_i];
     }
+    std::sort(arr.begin(), arr.end());
     int result = equal(arr);
     cout << result << endl;
   }
