@@ -28,7 +28,8 @@ enum class Console_colour : int {
     BG_DEFAULT = 49
 };
 
-void print_coloured(const std::string& info, Console_colour colour)
+template <typename T>
+void print_coloured(const T& info, Console_colour colour)
 {
     std::cout << "\033[" << static_cast<int>(colour) << "m" <<info << "\033[" << static_cast<int>(Console_colour::FG_DEFAULT) << 'm';
 }
@@ -53,7 +54,8 @@ enum class Console_colour : WORD {
     FG_LIGHT_CYAN = FOREGROUND_BLUE | FOREGROUND_GREEN,
 };
 
-void print_coloured(const std::string& info, Console_colour colour)
+template <typename T>
+void print_coloured(const T& info, Console_colour colour)
 {
     WORD Attributes = 0;
     CONSOLE_SCREEN_BUFFER_INFO Info;
@@ -91,7 +93,8 @@ enum class Console_colour : int {
     BG_DEFAULT = 49
 };
 
-void print_coloured(const std::string& info, Console_colour)
+template <typename T>
+void print_coloured(const T& info, Console_colour)
 {
     std::cout << info;
 }
